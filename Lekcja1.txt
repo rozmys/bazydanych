@@ -1,0 +1,74 @@
+Zadanie 1:
+CREATE TABLE postac (id_postaci int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+													nazwa varchar(40),
+													rodzaj enum('wiking' , 'ptak' , 'kobieta'),
+													data_ur date,
+													wiek int unsigned
+												);
+										
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('Bjorn', 'ptak','1000-12-12',5);
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('Drozd', 'ptak','1001-11-11',100);
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('Tesciowa', 'wiking','1200-12-12',800);
+UPDATE postac SET wiek=88 where nazwa='Tesciowa';
+
+Zadanie 2:
+
+CREATE TABLE walizka (id_walizki int NOT NULL AUTO_INCREMENT,
+													pojemnosc int unsigned,
+													kolor enum('rozowy' , 'czerwony' , 'teczowy','zolty'),
+													id_wlasciciela int,
+													PRIMARY KEY(id_walizki),
+													CONSTRAINT FK_walizkaPostac FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci)
+												);
+												
+ALTER TABLE walizka ALTER kolor SET DEFAULT 'rozowy';
+
+INSERT INTO walizka(pojemnosc,id_wlasciciela) VALUES (5,1);
+
+INSERT INTO walizka(pojemnosc,id_wlasciciela) VALUES (20,3);
+
+Zadanie 3:
+
+CREATE TABLE izba(adres_budynku varchar(100) NOT NULL,
+													nazwa_izby varchar(100) NOT NULL,
+													metraz int unsigned,
+													wlasciciel int NULL,
+													CONSTRAINT PK_izba PRIMARY KEY (adres_budynku, nazwa_izby),
+													CONSTRAINT FK_izbaPostac FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci)
+												);
+												
+ALTER TABLE izba ADD COLUMN kolor varchar(50) AFTER metraz;
+
+ALTER TABLE izba ALTER kolor SET DEFAULT 'czarny';
+
+INSERT INTO izba(adres_budynku, nazwa_izby, metraz, wlasciciel) VALUES ('przygodowa 3', 'spizarnia', 25, 3);
+
+Zadanie 4:
+
+CREATE TABLE przetwory(id_przetworu INT NOT NULL AUTO_INCREMENT, 
+														rok_produkcji YEAR DEFAULT 1954, 
+														id_wykonawcy int, 
+														zawartosc varchar(255), 
+														dodatek varchar(255) DEFAULT 'papryczka chilli', 
+														id_konsumenta int,
+														PRIMARY KEY(id_przetworu),
+														CONSTRAINT FK_wynkonawcaPostac FOREIGN KEY(id_wykonawcy) REFERENCES postac(id_postaci),
+														CONSTRAINT FK_konsumentPostac FOREIGN KEY(id_konsumenta) REFERENCES postac(id_postaci)
+														);
+
+INSERT INTO przetwory(id_wykonawcy, zawartosc, id_konsumenta) VALUES
+(3, 'bigos', 1);
+
+Zadanie 5:
+
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('wiking1', 'wiking','1210-12-12',800);
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('wiking2', 'wiking','1211-12-12',800);
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('wiking3', 'wiking','1213-12-12',800);
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('wiking4', 'wiking','1214-12-12',800);
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek) VALUES ('wiking5', 'wiking','1215-12-12',800);
+
+CREATE TABLE statek(nazwa_statku varchar(200) PRIMARY KEY NOT NULL , 
+												rodzaj_statku enum('wolny','szybki'),
+												data_wodowania DATE, 
+												max_ladownosc int unsigned
+												);
