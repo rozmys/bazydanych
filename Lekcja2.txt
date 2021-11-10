@@ -1,0 +1,30 @@
+Zadanie 1:
+DELETE  FROM postac WHERE nazwa='wiking1';
+DELETE  FROM postac WHERE nazwa='wiking2';
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+
+ALTER TABLE przetwory DROP FOREIGN KEY FK_konsumentPostac;
+
+ALTER TABLE walizka DROP FOREIGN KEY FK_walizkaPostac;
+
+ALTER TABLE przetwory DROP FOREIGN KEY FK_wynkonawcaPostac;
+
+ALTER TABLE postac DROP PRIMARY KEY;
+
+ALTER TABLE postac MODIFY id_postaci INT
+
+ALTER TABLE postac DROP PRIMARY KEY;
+Zadanie 2:
+ALTER TABLE postac ADD pesel char(11);
+UPDATE postac SET pesel='11001100221' WHERE nazwa='Bjorn';
+UPDATE postac SET pesel='11001123021' WHERE nazwa='Drozd';
+ UPDATE postac SET pesel='11341123021' WHERE nazwa='Tesciowa';
+UPDATE postac SET pesel='11356723021' WHERE nazwa='wiking3';
+UPDATE postac SET pesel='11356567211' WHERE nazwa='wiking4';
+UPDATE postac SET pesel='11356876511' WHERE nazwa='wiking5';
+ALTER TABLE postac ADD PRIMARY KEY (pesel);
+Zadanie 3;
+UPDATE postac SET statek="statek1" WHERE nazwa like '%a%';
+  UPDATE statek  SET max_ladownosc=(max_ladownosc*1.30)  WHERE data_wodowania BETWEEN '1900-01-01' AND '2000-12-31' ;
+
+
