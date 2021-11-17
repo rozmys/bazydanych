@@ -26,5 +26,39 @@ ALTER TABLE postac ADD PRIMARY KEY (pesel);
 Zadanie 3;
 UPDATE postac SET statek="statek1" WHERE nazwa like '%a%';
   UPDATE statek  SET max_ladownosc=(max_ladownosc*1.30)  WHERE data_wodowania BETWEEN '1900-01-01' AND '2000-12-31' ;
+Zadanie 4.
+ALTER TABLE postac MODIFY COLUMN rodzaj enum ('wiking' , 'ptak' , 'kobieta' , 'waz') DEFAULT NULL;
+ 
+ INSERT INTO postac(id_postaci,nazwa,rodzaj,pesel) VALUES (9,'Loko', 'waz','12305768376');
 
+ CREATE TABLE  marynarz ( id_postaci int NOT NULL,
+  nazwa varchar(40) DEFAULT NULL,
+  rodzaj enum('wiking','ptak','kobieta','waz') DEFAULT NULL,
+  data_ur date DEFAULT NULL,
+  wiek int unsigned DEFAULT NULL,
+  funkcja varchar(50) DEFAULT NULL,
+  statek varchar(200) DEFAULT NULL,
+  pesel char(11) NOT NULL,
+  PRIMARY KEY (`pesel`),
+  KEY `statek` (`statek`)
+) ;
+INSERT INTO marynarz ( select * from postac  where statek is not null)  ;
 
+Zadanie 5.
+UPDATE postac SET statek=null;
+
+UPDATE marynarz SET statek=null;
+
+DELETE FROM postac WHERE nazwa='wiking4';
+
+DELETE FROM marynarz WHERE nazwa='wiking4';
+
+DELETE FROM  statek where nazwa_statku is not null;
+
+ DROP TABLE statek;
+ 
+CREATE TABLE zwierz (id INT AUTO_INCREMENT PRIMARY KEY, nazwa VARCHAR(40),wiek INT unsigned);
+
+ INSERT INTO zwierz(nazwa,wiek) ( select nazwa , wiek from postac WHERE rodzaj='ptak' OR rodzaj='waz');
+ 
+ 
