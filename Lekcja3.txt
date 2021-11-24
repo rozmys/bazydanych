@@ -15,4 +15,15 @@ SELECT * FROM zasob WHERE waga BETWEEN 2 and 5;
 SELECT * FROM kreatura WHERE nazwa like '%or%' and  udzwig BETWEEN 30 and 70;
 
 Zadanie3
-SELECT * FROM zasob WHERE dataPozyskania BETWEEN 
+SELECT * FROM zasob WHERE MONTH(dataPozyskania)= 7 OR MONTH(dataPozyskania)= 8;
+SELECT * FROM zasob WHERE rodzaj IS NOT NULL ORDER BY waga ASC;
+SELECT * FROM kreatura ORDER BY dataUr ASC LIMIT 5;
+Zadanie4
+SELECT DISTINCT rodzaj FROM zasob;
+SELECT CONCAT(nazwa," ",rodzaj) AS 'nazwa - rodzaj' FROM kreatura WHERE rodzaj like 'wi%';
+SELECT idZasobu , nazwa , waga*ilosc AS waga_całkowita , dataPozyskania , rodzaj FROM zasob WHERE dataPozyskania BETWEEN '2000-01-01' AND '2007-12-31';
+
+Zadanie5
+SELECT SUM(waga*0.70) AS waga_netto, SUM(waga*0.30)AS waga_odpadow FROM zasob WHERE rodzaj='jedzenie';
+SELECT * FROM zasob WHERE rodzaj IS NULL;
+SELECT DISTINCT nazwa , rodzaj FROM zasob WHERE nazwa like 'Ba%' OR nazwa like '%os';

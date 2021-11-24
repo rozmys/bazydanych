@@ -1,0 +1,13 @@
+Zadanie 1
+SELECT AVG(waga) AS srednia_waga FROM kreatura WHERE rodzaj='wiking';
+SELECT rodzaj, AVG(waga) AS srednia_waga, COUNT(nazwa) AS liczba_kreatur  FROM kreatura GROUP BY rodzaj;
+SELECT rodzaj, AVG(2021-YEAR(dataUr)) AS sredni_wiek FROM kreatura GROUP BY rodzaj;
+Zadanie2
+SELECT rodzaj, SUM(waga) FROM zasob GROUP BY rodzaj;
+SELECT nazwa, AVG(waga) FROM zasob WHERE ilosc>=4  GROUP BY nazwa HAVING SUM(waga)>10 ;
+SELECT rodzaj, COUNT(nazwa) FROM zasob WHERE ilosc>1 GROUP BY rodzaj;
+
+Zadanie3
+SELECT kreatura.nazwa , SUM(ekwipunek.ilosc) FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury GROUP BY nazwa;
+SELECT DISTINCT kreatura.nazwa , zasob.nazwa FROM kreatura JOIN ekwipunek LEFT OUTER JOIN zasob ON kreatura.idKreatury = ekwipunek.idKreatury AND zasob.idZasobu=ekwipunek.idZasobu WHERE zasob.nazwa IS NOT NULL;
+SELECT * FROM kreatura WHERE idKreatury NOT IN (SELECT idKreatury FROM ekwipunek WHERE idKreatury IS NOT NULL) ;
