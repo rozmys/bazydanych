@@ -11,3 +11,12 @@ Zadanie3
 SELECT kreatura.nazwa , SUM(ekwipunek.ilosc) FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury GROUP BY nazwa;
 SELECT DISTINCT kreatura.nazwa , zasob.nazwa FROM kreatura JOIN ekwipunek LEFT OUTER JOIN zasob ON kreatura.idKreatury = ekwipunek.idKreatury AND zasob.idZasobu=ekwipunek.idZasobu WHERE zasob.nazwa IS NOT NULL;
 SELECT * FROM kreatura WHERE idKreatury NOT IN (SELECT idKreatury FROM ekwipunek WHERE idKreatury IS NOT NULL) ;
+ 
+ Zadanie4
+ SELECT DISTINCT kreatura.nazwa, zasob.nazwa FROM kreatura NATURAL JOIN ekwipunek  NATURAL JOIN zasob WHERE kreatura.rodzaj="wiking" AND YEAR(dataUr) BETWEEN 1770 AND 1779;
+SELECT kreatura.nazwa FROM kreatura JOIN ekwipunek LEFT OUTER JOIN zasob ON kreatura.idKreatury = ekwipunek.idKreatury AND zasob.idZasobu=ekwipunek.idZasobu WHERE zasob.rodzaj="jedzenie" ORDER BY dataUr DESC LIMIT 5;
+SELECT a.nazwa , b.nazwa FROM kreatura a LEFT JOIN kreatura b ON a.idKreatury=b.idKreatury-5; 
+
+Zadanie5
+SELECT kreatura.rodzaj, AVG(zasob.waga*zasob.ilosc) FROM kreatura JOIN ekwipunek LEFT OUTER JOIN zasob ON kreatura.idKreatury = ekwipunek.idKreatury AND zasob.idZasobu=ekwipunek.idZasobu WHERE kreatura.rodzaj!="malpa" AND kreatura.rodzaj!="waz" AND ekwipunek.ilosc<30 GROUP BY kreatura.rodzaj;
+SELECT rodzaj , nazwa, dataUr FROM  kreatura WHERE dataUr=(SELECT  dataUr FROM ;
