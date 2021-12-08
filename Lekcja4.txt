@@ -19,4 +19,7 @@ SELECT a.nazwa , b.nazwa FROM kreatura a LEFT JOIN kreatura b ON a.idKreatury=b.
 
 Zadanie5
 SELECT kreatura.rodzaj, AVG(zasob.waga*zasob.ilosc) FROM kreatura JOIN ekwipunek LEFT OUTER JOIN zasob ON kreatura.idKreatury = ekwipunek.idKreatury AND zasob.idZasobu=ekwipunek.idZasobu WHERE kreatura.rodzaj!="malpa" AND kreatura.rodzaj!="waz" AND ekwipunek.ilosc<30 GROUP BY kreatura.rodzaj;
-SELECT rodzaj , nazwa, dataUr FROM  kreatura WHERE dataUr=(SELECT  dataUr FROM ;
+
+SELECT k1.rodzaj , k1.nazwa , mlodzi.minimalna_data, k2.nazwa , mlodzi.maksymalna_data FROM (SELECT rodzaj, MIN(dataUr) AS minimalna_data, MAX(dataUr) AS maksymalna_data FROM kreatura GROUP BY rodzaj) AS mlodzi,  JOIN kreatura k1 ON mlodzi.rodzaj = k1.rodzaj AND mlodzi.minimalna_data = k1.dataUr JOIN kreatura k2 ON mlodzi.rodzaj=k2.rodzaj AND mlodzi.maksymalna_data=k2.dataUr;
+
+SELECT rodzaj , MAX(waga) FROM kreatura AS  k1 WHERE waga !=(SELECT  MAX(waga) AS maksywalna_waga FROM kreatura WHERE rodzaj = k1.rodzaj) GROUP BY rodzaj ;
