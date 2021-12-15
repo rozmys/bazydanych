@@ -1,0 +1,18 @@
+Zadanie 1
+CREATE TABLE wyprawa AS (SELECT * FROM  wikingowie.wyprawa);
+CREATE TABLE uczestnicy AS (SELECT * FROM  wikingowie.uczestnicy);
+CREATE TABLE etapy_wyprawy AS (SELECT * FROM  wikingowie.etapy_wyprawy);
+CREATE TABLE sektor AS (SELECT * FROM  wikingowie.sektor);
+CREATE TABLE wyprawa AS (SELECT * FROM  wikingowie.wyprawa);
+SELECT nazwa FROM kreatura WHERE idKreatury NOT IN(SELECT id_uczestnika FROM uczestnicy);
+SELECT wyprawa.nazwa, SUM(ekwipunek.ilosc) FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN ekwipunek ON uczestnicy.id_uczestnika=ekwipunek.idKreatury GROUP BY wyprawa.nazwa;
+Zadanie 2
+
+SELECT wyprawa.nazwa, COUNT(uczestnicy.id_uczestnika), GROUP_CONCAT(kreatura.nazwa) FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN kreatura ON uczestnicy.id_uczestnika=kreatura.idKreatury GROUP BY wyprawa.nazwa;
+
+SELECT etapy_wyprawy.dziennik , sektor.nazwa AS nazwa_sektoru , kreatura.nazwa AS kierownik FROM etapy_wyprawy JOIN wyprawa ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy JOIN kreatura ON wyprawa.kierownik=kreatura.idKreatury JOIN sektor ON etapy_wyprawy.sektor=sektor.id_sektora ORDER BY wyprawa.data_rozpoczecia , etapy_wyprawy.kolejnosc;
+Zadanie 3
+SELECT sektor.nazwa , IFNULL(COUNT(etapy_wyprawy.sektor),0) AS ile_razy_by_odwiedzany FROM sektor LEFT JOIN etapy_wyprawy ON sektor.id_sektora=etapy_wyprawy.sektor GROUP BY sektor.nazwa;
+
+SELECT kreatura.nazwa , IF(IFNULL(COUNT(uczestnicy.id_uczestnika),0)>0,"brał udział w wyprawie","nie brał udziału w wyprawie") AS czy_bral_udzial FROM kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury=uczestnicy.id_uczestnika GROUP BY kreatura.nazwa;
+
